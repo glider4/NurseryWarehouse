@@ -8,3 +8,5 @@ Data downloads: https://gispub2.epa.gov/NPDAT/DataDownloads.html
 
 More spreadsheets:
 https://www.epa.gov/nutrient-policy-data/waters-assessed-impaired-due-nutrient-related-causes
+
+![ERD](./docs/nurseryERD.png)
