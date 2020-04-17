@@ -35,7 +35,7 @@ location = facilities[['ID','CITY','STATE_CODE','ZIP',
                        'COUNTY_NAME','EPA_REGION_CODE',
                        'GOECODE_LATITUDE', 'GEOCODE_LONGITUDE']]
 
-chemical = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_N_LIMIT_UNITS',
+chemical_wide = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_N_LIMIT_UNITS',
                        'TKN_MIN_LIMIT','TKN_MAX_LIMIT','TKN_LIMIT_UNITS','ORGN_MIN_LIMIT',
                        'ORGN_MAX_LIMIT','ORGN_LIMIT_UNITS','AMMONIA_MIN_LIMIT',
                        'AMMONIA_MAX_LIMIT','AMMONIA_LIMIT_UNITS','INORGN_MIN_LIMIT',
@@ -45,5 +45,19 @@ chemical = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_N_LIM
                        'TOTAL_P_MAX_LIMIT','TOTAL_P_LIMIT_UNITS','PO4_MIN_LIMIT','PO4_MAX_LIMIT',
                        'PO4_LIMIT_UNITS']]
 
+# Convert chemical_wide df to narrower, focused fact table based on individual facility & chemical info
+chemical = pd.DataFrame(columns=['ID','Chemical_Name','MinLimit','MaxLimit','Units'])
+for _ID in range(1, len(chemical_wide)-1):
+    chemical_subset = chemical_wide.loc[(chemical_wide.ID == _ID)]
+    
+    N = {'ID': chemical_subset.loc[_ID]['ID'],
+               'Chemical_Name': 'N', 
+               'MinLimit': chemical_subset.loc[_ID]['TOTAL_N_MIN_LIMIT'], 
+               'MaxLimit': chemical_subset.loc[_ID]['TOTAL_N_MAX_LIMIT'], 
+               'Units': chemical_subset.loc[_ID]['TOTAL_N_LIMIT_UNITS']}
+    
+    chemical = chemical.append(N, ignore_index=True)
+    
+    
 date = facilities[['ID','DMR_YEAR']]
-date['datetime'] = pd.to_datetime(date[['DMR_YEAR','','']], errors='coerce')
+# date['datetime'] = pd.to_datetime(date[['DMR_YEAR','','']], errors='coerce')
