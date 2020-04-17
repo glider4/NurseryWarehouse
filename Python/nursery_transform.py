@@ -2,22 +2,26 @@
 # -*- coding: utf-8 -*-
 """
 Clean up & transform nursery data; prepare to load into postgres database.
+Create fact table structure and populate with data from cleaned datasets.
 """
 
 import pandas as pd
 
+# Set paths to data files
 facilities_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/Facilities_Likely_NP.csv'
 estuaries_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/impairedestuaries.xlsx'
 rivers_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/impairedrivers.xlsx'
 lakes_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/impairedlakes.xlsx'
 waters_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/Waters_Listed_NP_Impairments.csv'
 
+# Import data files as DataFrames
 facilities = pd.read_csv(facilities_path, delimiter=',', encoding='iso-8859-1')
 estuaries = pd.read_excel(estuaries_path, skiprows=2)
 rivers = pd.read_excel(rivers_path, skiprows=2)
 lakes = pd.read_excel(lakes_path, skiprows=2)
 waters = pd.read_csv(waters_path, delimiter=',', encoding='iso-8859-1')
 
+# Use index of facilities to help join fact tables later on
 facilities['ID'] = facilities.index
 
 # Subset data into fact tables
@@ -42,3 +46,4 @@ chemical = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_N_LIM
                        'PO4_LIMIT_UNITS']]
 
 date = facilities[['ID','DMR_YEAR']]
+date['datetime'] = pd.to_datetime(date[['DMR_YEAR','','']], errors='coerce')
