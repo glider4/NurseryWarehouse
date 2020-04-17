@@ -52,7 +52,7 @@ chemical_wide = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_
 # Convert chemical_wide df to narrower, focused fact table based on individual facility & chemical info
 chemical = pd.DataFrame(columns=['ID','Chemical_Name','MinLimit','MaxLimit','Units'])
 
-for _ID in range(0, 1000):#len(chemical_wide)-1):
+for _ID in range(0, len(chemical_wide)-1):
     
     N = {'ID': chemical_wide.iloc[_ID]['ID'],
                'Chemical_Name': 'N', 
