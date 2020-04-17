@@ -9,13 +9,22 @@ DROP TABLE IF EXISTS NURSERY_ANALYSIS;
 
 CREATE TABLE FACILITY (
 	Facility_ID INTEGER PRIMARY KEY NOT NULL,
-	Year INTEGER,
+	Facility_UIN INTEGER NOT NULL,
 	PermitNumber INTEGER,
-	PermitType VARCHAR(30),
+	PermitType VARCHAR(6),
 	FacilityName VARCHAR(100),
 	FacilityType VARCHAR(50),
 	FacilityDetail VARCHAR(100),
-	LikelyToDischargeNP VARCHAR(5)
+	LikelyToDischargeNP VARCHAR(6),
+	Has_N_Limits VARCHAR(6),
+	Has_P_Limits VARCHAR(6),
+	Has_N_Monitoring VARCHAR(6),
+	Has_P_Monitoring VARCHAR(6),
+	SICCODE INTEGER,
+	NAICS_CODE INTEGER,
+	Major_Minor_Flag CHAR(1),
+	Design_Flow NUMERIC,
+	Actual_Flow NUMERIC
 );
 
 CREATE TABLE CLIMATE (
@@ -30,10 +39,6 @@ CREATE TABLE CLIMATE (
 CREATE TABLE CHEMICAL (
 	Chemical_ID INTEGER PRIMARY KEY NOT NULL,
 	Chem_Name VARCHAR(50),
-	Has_N_Limit VARCHAR(5),
-	Has_P_Limit VARCHAR(5),
-	Monitoring_N VARCHAR(5),
-	Monitoring_P VARCHAR(5),
 	Min_Limit NUMERIC,
 	Max_Limit NUMERIC,
 	Units VARCHAR(20)
@@ -52,10 +57,8 @@ CREATE TABLE LOCATION (
 
 CREATE TABLE DATE (
 	Date_ID INTEGER PRIMARY KEY NOT NULL,
-	DateTime DATE,
 	Year INTEGER,
-	Month INTEGER,
-	Day INTEGER
+	DateTime DATE
 );
 
 CREATE TABLE NURSERY_ANALYSIS (
@@ -70,6 +73,8 @@ CREATE TABLE NURSERY_ANALYSIS (
 	AvgDailyTemp NUMERIC,
 	PrcntChemsMonitored NUMERIC,
 	PrcntRiversImpaired NUMERIC,
+	PrcntEstuariesImpaired NUMERIC,
+	PrcntLakesImpaired NUMERIC,
 	NumChemsDischarged NUMERIC,
 	NumAbnormalLo NUMERIC,
 	NumAbnormalHi NUMERIC
