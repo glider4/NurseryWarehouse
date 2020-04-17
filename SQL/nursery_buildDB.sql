@@ -52,7 +52,10 @@ CREATE TABLE LOCATION (
 	County VARCHAR(50),
 	EPARegion VARCHAR(50),
 	Latitude NUMERIC,
-	Longtitude NUMERIC
+	Longtitude NUMERIC,
+	PrcntRiversImpaired NUMERIC,
+	PrcntEstuariesImpaired NUMERIC,
+	PrcntLakesImpaired NUMERIC,
 );
 
 CREATE TABLE DATE (
@@ -72,9 +75,6 @@ CREATE TABLE NURSERY_ANALYSIS (
 	AvgSeasonLength NUMERIC,
 	AvgDailyTemp NUMERIC,
 	PrcntChemsMonitored NUMERIC,
-	PrcntRiversImpaired NUMERIC,
-	PrcntEstuariesImpaired NUMERIC,
-	PrcntLakesImpaired NUMERIC,
 	NumChemsDischarged NUMERIC,
 	NumAbnormalLo NUMERIC,
 	NumAbnormalHi NUMERIC
