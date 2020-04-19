@@ -35,7 +35,7 @@ facility = facilities[['ID','UIN','EXTERNAL_PERMIT_NMBR','PERMIT_TYPE_CODE','FAC
                        'SICCODE','NAICS_CODE','MAJOR_MINOR_STATUS_FLAG',
                        'TOTAL_DESIGN_FLOW_NMBR', 'ACTUAL_AVERAGE_FLOW_NMBR']]
 
-location = facilities[['ID','CITY','STATE_CODE','ZIP',
+location_fac_info = facilities[['ID','CITY','STATE_CODE','ZIP',
                        'COUNTY_NAME','EPA_REGION_CODE',
                        'GOECODE_LATITUDE', 'GEOCODE_LONGITUDE']]
 
@@ -52,10 +52,14 @@ chemical_wide = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_
 merge_lakes_rivers = pd.merge(lakes, rivers, on=['State', 'State'])
 impaired = pd.merge(merge_lakes_rivers, estuaries, on=['State', 'State'])
 
+# Merge lakes, rivers, estuaries info into location df
+location_state_info = pd.merge(location_fac_info, impaired, by=['STATE_CODE', 'State'])
+
 # Convert chemical_wide df to narrower, focused fact table based on individual facility & chemical info
+chemical_wide = chemical_wide.dropna(thresh=2)
 chemical = pd.DataFrame(columns=['ID','Chemical_Name','MinLimit','MaxLimit','Units'])
 
-for _ID in range(0, len(chemical_wide)-1):
+for _ID in chemical_wide[['ID']]:
     
     N = {'ID': chemical_wide.iloc[_ID]['ID'],
                'Chemical_Name': 'N', 
@@ -68,7 +72,6 @@ for _ID in range(0, len(chemical_wide)-1):
                'MinLimit': chemical_wide.iloc[_ID]['TOTAL_P_MIN_LIMIT'], 
                'MaxLimit': chemical_wide.iloc[_ID]['TOTAL_P_MAX_LIMIT'], 
                'Units': chemical_wide.iloc[_ID]['TOTAL_P_LIMIT_UNITS']}
-    
     
     TKN = {'ID': chemical_wide.iloc[_ID]['ID'],
                'Chemical_Name': 'TKN', 
