@@ -55,7 +55,7 @@ CREATE TABLE LOCATION (
 	Longtitude NUMERIC,
 	PrcntRiversImpaired NUMERIC,
 	PrcntEstuariesImpaired NUMERIC,
-	PrcntLakesImpaired NUMERIC,
+	PrcntLakesImpaired NUMERIC
 );
 
 CREATE TABLE DATE (
