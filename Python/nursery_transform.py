@@ -51,9 +51,10 @@ facility = facilities[['ID','UIN','EXTERNAL_PERMIT_NMBR','PERMIT_TYPE_CODE','FAC
                        'TOTAL_DESIGN_FLOW_NMBR', 'ACTUAL_AVERAGE_FLOW_NMBR']]
 
 # Subset location data
+facilities.rename(columns={'GOECODE_LATITUDE':'GEOCODE_LATITUDE'}, inplace=True)
 location_fac_info = facilities[['ID','CITY','STATE_CODE','ZIP',
                        'COUNTY_NAME','EPA_REGION_CODE',
-                       'GOECODE_LATITUDE', 'GEOCODE_LONGITUDE']]
+                       'GEOCODE_LATITUDE', 'GEOCODE_LONGITUDE']]
 
 # Subset chemical data into wide df with all chemicals and limits
 chemical_wide = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_N_LIMIT_UNITS',
