@@ -59,7 +59,7 @@ location_state_info = pd.merge(location_fac_info, impaired, by=['STATE_CODE', 'S
 chemical_wide = chemical_wide.dropna(thresh=2)
 chemical = pd.DataFrame(columns=['ID','Chemical_Name','MinLimit','MaxLimit','Units'])
 
-for _ID in chemical_wide[['ID']]:
+for _ID in chemical_wide.ID:
     
     N = {'ID': chemical_wide.iloc[_ID]['ID'],
                'Chemical_Name': 'N', 
