@@ -102,64 +102,68 @@ chemical_wide = chemical_wide.dropna(thresh=2)
 # Staging table as fact table design
 chemical = pd.DataFrame(columns=['ID','Chemical_Name','MinLimit','MaxLimit','Units'])
 
-for _ID in chemical_wide.ID:
-    
-    N = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'N', 
-               'MinLimit': chemical_wide.iloc[_ID]['TOTAL_N_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['TOTAL_N_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['TOTAL_N_LIMIT_UNITS']}
-    
-    P = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'P', 
-               'MinLimit': chemical_wide.iloc[_ID]['TOTAL_P_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['TOTAL_P_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['TOTAL_P_LIMIT_UNITS']}
-    
-    TKN = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'TKN', 
-               'MinLimit': chemical_wide.iloc[_ID]['TKN_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['TKN_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['TKN_LIMIT_UNITS']}
-    
-    ORGN = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'ORGN', 
-               'MinLimit': chemical_wide.iloc[_ID]['ORGN_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['ORGN_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['ORGN_LIMIT_UNITS']}
-    
-    AMMONIA = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'AMMONIA', 
-               'MinLimit': chemical_wide.iloc[_ID]['AMMONIA_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['AMMONIA_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['AMMONIA_LIMIT_UNITS']}
-    
-    INORGN = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'INORGN', 
-               'MinLimit': chemical_wide.iloc[_ID]['INORGN_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['INORGN_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['INORGN_LIMIT_UNITS']}
-    
-    NITRATE = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'NITRATE', 
-               'MinLimit': chemical_wide.iloc[_ID]['NITRATE_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['NITRATE_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['NITRATE_LIMIT_UNITS']}
-    
-    PO4 = {'ID': chemical_wide.iloc[_ID]['ID'],
-               'Chemical_Name': 'PO4', 
-               'MinLimit': chemical_wide.iloc[_ID]['PO4_MIN_LIMIT'], 
-               'MaxLimit': chemical_wide.iloc[_ID]['PO4_MAX_LIMIT'], 
-               'Units': chemical_wide.iloc[_ID]['PO4_LIMIT_UNITS']}
-    
-    chemical = chemical.append(N, ignore_index=True)
-    chemical = chemical.append(P, ignore_index=True)
-    chemical = chemical.append(TKN, ignore_index=True)
-    chemical = chemical.append(ORGN, ignore_index=True)
-    chemical = chemical.append(AMMONIA, ignore_index=True)
-    chemical = chemical.append(INORGN, ignore_index=True)
-    chemical = chemical.append(NITRATE, ignore_index=True)
-    chemical = chemical.append(PO4, ignore_index=True)
+try:
+    for _ID in chemical_wide.ID:
+        
+        N = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'N', 
+                   'MinLimit': chemical_wide.iloc[_ID]['TOTAL_N_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['TOTAL_N_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['TOTAL_N_LIMIT_UNITS']}
+        
+        P = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'P', 
+                   'MinLimit': chemical_wide.iloc[_ID]['TOTAL_P_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['TOTAL_P_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['TOTAL_P_LIMIT_UNITS']}
+        
+        TKN = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'TKN', 
+                   'MinLimit': chemical_wide.iloc[_ID]['TKN_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['TKN_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['TKN_LIMIT_UNITS']}
+        
+        ORGN = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'ORGN', 
+                   'MinLimit': chemical_wide.iloc[_ID]['ORGN_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['ORGN_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['ORGN_LIMIT_UNITS']}
+        
+        AMMONIA = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'AMMONIA', 
+                   'MinLimit': chemical_wide.iloc[_ID]['AMMONIA_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['AMMONIA_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['AMMONIA_LIMIT_UNITS']}
+        
+        INORGN = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'INORGN', 
+                   'MinLimit': chemical_wide.iloc[_ID]['INORGN_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['INORGN_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['INORGN_LIMIT_UNITS']}
+        
+        NITRATE = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'NITRATE', 
+                   'MinLimit': chemical_wide.iloc[_ID]['NITRATE_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['NITRATE_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['NITRATE_LIMIT_UNITS']}
+        
+        PO4 = {'ID': chemical_wide.iloc[_ID]['ID'],
+                   'Chemical_Name': 'PO4', 
+                   'MinLimit': chemical_wide.iloc[_ID]['PO4_MIN_LIMIT'], 
+                   'MaxLimit': chemical_wide.iloc[_ID]['PO4_MAX_LIMIT'], 
+                   'Units': chemical_wide.iloc[_ID]['PO4_LIMIT_UNITS']}
+        
+        chemical = chemical.append(N, ignore_index=True)
+        chemical = chemical.append(P, ignore_index=True)
+        chemical = chemical.append(TKN, ignore_index=True)
+        chemical = chemical.append(ORGN, ignore_index=True)
+        chemical = chemical.append(AMMONIA, ignore_index=True)
+        chemical = chemical.append(INORGN, ignore_index=True)
+        chemical = chemical.append(NITRATE, ignore_index=True)
+        chemical = chemical.append(PO4, ignore_index=True)
+
+except IndexError:
+    pass
 
 
 date = facilities[['ID','DMR_YEAR']]
