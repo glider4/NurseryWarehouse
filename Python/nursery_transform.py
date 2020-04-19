@@ -48,6 +48,9 @@ chemical_wide = facilities[['ID','TOTAL_N_MIN_LIMIT','TOTAL_N_MAX_LIMIT','TOTAL_
                        'TOTAL_P_MAX_LIMIT','TOTAL_P_LIMIT_UNITS','PO4_MIN_LIMIT','PO4_MAX_LIMIT',
                        'PO4_LIMIT_UNITS']]
 
+# Merge lakes, rivers, estuaries data
+merge_lakes_rivers = pd.merge(lakes, rivers, on=['State', 'State'])
+impaired = pd.merge(merge_lakes_rivers, estuaries, on=['State', 'State'])
 
 # Convert chemical_wide df to narrower, focused fact table based on individual facility & chemical info
 chemical = pd.DataFrame(columns=['ID','Chemical_Name','MinLimit','MaxLimit','Units'])
@@ -102,6 +105,7 @@ for _ID in range(0, len(chemical_wide)-1):
                'MinLimit': chemical_wide.iloc[_ID]['PO4_MIN_LIMIT'], 
                'MaxLimit': chemical_wide.iloc[_ID]['PO4_MAX_LIMIT'], 
                'Units': chemical_wide.iloc[_ID]['PO4_LIMIT_UNITS']}
+
     
     chemical = chemical.append(N, ignore_index=True)
     chemical = chemical.append(P, ignore_index=True)
@@ -111,6 +115,8 @@ for _ID in range(0, len(chemical_wide)-1):
     chemical = chemical.append(INORGN, ignore_index=True)
     chemical = chemical.append(NITRATE, ignore_index=True)
     chemical = chemical.append(PO4, ignore_index=True)
+    
+    print(_ID)
     
     
 date = facilities[['ID','DMR_YEAR']]
