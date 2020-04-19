@@ -23,6 +23,22 @@ rivers = pd.read_excel(rivers_path, skiprows=2)
 lakes = pd.read_excel(lakes_path, skiprows=2)
 waters = pd.read_csv(waters_path, delimiter=',', encoding='iso-8859-1')
 
+# Rename columns for estuaries, rivers, lakes df's
+del estuaries['Unnamed: 7']
+del estuaries['Unnamed: 8']
+
+estuaries.columns = ['State','AssessedEstuariesSqMi','PrcntAssessedEstuaries',
+                     'EstuariesWithNutrientImpairSqMi','PrctEstuariesImpaired',
+                     'PrcntEstuariesImparedwithRestorationPlan', 'EstuariesReportYear']
+
+rivers.columns = ['State','AssessedRiversMi','PrcntAssessedRivers',
+                     'RiversWithNutrientImpairMiles','PrctRiversImpaired',
+                     'PrcntRiversImparedwithRestorationPlan', 'RiversReportYear']
+
+lakes.columns = ['State','AssessedLakesAcres','PrcntAssessedLakes',
+                     'LakesWithNutrientImpairAcres','PrctLakesImpaired',
+                     'PrcntLakesImparedwithRestorationPlan', 'LakesReportYear']
+
 
 # Use index of facilities to help join fact tables later on
 facilities['ID'] = facilities.index
@@ -80,7 +96,10 @@ location_state_info = pd.merge(location_fac_info, impaired, how='left', on=['sta
 location = location_state_info
 
 # Convert chemical_wide df to narrower, focused fact table based on individual facility & chemical info
+# Keep rows with 2 or more non-NA values - this means ID and a chemical limit or something
 chemical_wide = chemical_wide.dropna(thresh=2)
+
+# Staging table as fact table design
 chemical = pd.DataFrame(columns=['ID','Chemical_Name','MinLimit','MaxLimit','Units'])
 
 for _ID in chemical_wide.ID:
@@ -141,7 +160,7 @@ for _ID in chemical_wide.ID:
     chemical = chemical.append(INORGN, ignore_index=True)
     chemical = chemical.append(NITRATE, ignore_index=True)
     chemical = chemical.append(PO4, ignore_index=True)
-    
+
 
 date = facilities[['ID','DMR_YEAR']]
 # date['datetime'] = pd.to_datetime(date[['DMR_YEAR','','']], errors='coerce')
