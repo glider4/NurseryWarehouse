@@ -31,7 +31,6 @@ CREATE TABLE CLIMATE (
 	Climate_ID INTEGER PRIMARY KEY NOT NULL,
 	State CHAR(2),
 	Temperature NUMERIC,
-	Humidity NUMERIC,
 	AbnormalHiFlag CHAR(1),
 	AbnormalLoFlag CHAR(1)
 );
