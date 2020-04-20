@@ -41,7 +41,7 @@ lakes.columns = ['State','AssessedLakesAcres','PrcntAssessedLakes',
                      'LakesWithNutrientImpairAcres','PrctLakesImpaired',
                      'PrcntLakesImparedwithRestorationPlan', 'LakesReportYear']
 
-NOAA.columns = ['State', 'Year', 'Month', 'AvgTempC']
+NOAA.columns = ['State', 'Month', 'Year', 'AvgTempC']
 
 
 # Use index of facilities to help join fact tables later on
@@ -174,8 +174,11 @@ except IndexError:
 date = facilities[['ID','DMR_YEAR']]
 # date['datetime'] = pd.to_datetime(date[['DMR_YEAR','','']], errors='coerce')
 
+climate = NOAA
+
 
 ##### EXPORT transformed dataframes
 facility.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/FACILITY.csv', index=False, encoding='utf-8')
 chemical.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv', index=False, encoding='utf-8')
 location.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
+climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
