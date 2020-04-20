@@ -61,6 +61,7 @@ CREATE TABLE LOCATION (
 CREATE TABLE DATE (
 	Date_ID INTEGER PRIMARY KEY NOT NULL,
 	Year INTEGER,
+	Month INTEGER,
 	DateTime DATE
 );
 
@@ -70,12 +71,11 @@ CREATE TABLE NURSERY_ANALYSIS (
 	CLIMATE_ID INTEGER,
 	CHEMICAL_ID INTEGER,
 	DATE_ID INTEGER,
-	Datetime DATE,
 	AvgChemDischargeLimit NUMERIC,
 	AvgSeasonLength NUMERIC,
-	AvgDailyTemp NUMERIC,
+	AvgMonthlyTemp NUMERIC,
 	PrcntChemsMonitored NUMERIC,
 	NumChemsDischarged NUMERIC,
-	NumAbnormalLo NUMERIC,
-	NumAbnormalHi NUMERIC
+	NumAbnormalHi NUMERIC,
+	NumAbnormalLo NUMERIC
 );
