@@ -181,4 +181,4 @@ climate = NOAA
 facility.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/FACILITY.csv', index=False, encoding='utf-8')
 chemical.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv', index=False, encoding='utf-8')
 location.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
-climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
+climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv', index=False, encoding='utf-8')
