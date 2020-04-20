@@ -14,6 +14,7 @@ estuaries_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/
 rivers_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/impairedrivers.xlsx'
 lakes_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/impairedlakes.xlsx'
 waters_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/Waters_Listed_NP_Impairments.csv'
+NOAA_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/NOAA_GHCND_subset.csv'
 
 
 # Import data files as DataFrames
@@ -22,6 +23,7 @@ estuaries = pd.read_excel(estuaries_path, skiprows=2)
 rivers = pd.read_excel(rivers_path, skiprows=2)
 lakes = pd.read_excel(lakes_path, skiprows=2)
 waters = pd.read_csv(waters_path, delimiter=',', encoding='iso-8859-1')
+NOAA = pd.read_csv(NOAA_path, delimiter=',', encoding='iso-8859-1')
 
 # Rename columns for estuaries, rivers, lakes df's
 del estuaries['Unnamed: 7']
@@ -38,6 +40,8 @@ rivers.columns = ['State','AssessedRiversMi','PrcntAssessedRivers',
 lakes.columns = ['State','AssessedLakesAcres','PrcntAssessedLakes',
                      'LakesWithNutrientImpairAcres','PrctLakesImpaired',
                      'PrcntLakesImparedwithRestorationPlan', 'LakesReportYear']
+
+NOAA.columns = ['State', 'Year', 'Month', 'AvgTempC']
 
 
 # Use index of facilities to help join fact tables later on
