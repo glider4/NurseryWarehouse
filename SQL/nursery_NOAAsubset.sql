@@ -1,4 +1,5 @@
 -- Export data for CLIMATE fact table: average monthly temps for NOAA GHCN-D US locations
+-- This must be executed on the NOAA-GHCND database: https://github.com/mathemacode/NOAA_GHCND
 
 COPY (
 
