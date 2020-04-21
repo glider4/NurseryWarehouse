@@ -178,6 +178,8 @@ date = facilities[['ID','DMR_YEAR']]
 # date['datetime'] = pd.to_datetime(date[['DMR_YEAR','','']], errors='coerce')
 
 climate = NOAA
+climate['AbnormalHiFlag'] = 0
+climate['AbnormalLoFlag'] = 0
 
 
 ##### EXPORT transformed dataframes
