@@ -20,3 +20,5 @@ climate = pd.read_csv(climate_path, delimiter=',')
 location = pd.read_csv(location_path, delimiter=',')
 chemical = pd.read_csv(chemical_path, delimiter=',')
 
+
+# FacilityID = LocationID = Facility_Ref
