@@ -30,7 +30,9 @@ CREATE TABLE FACILITY (
 CREATE TABLE CLIMATE (
 	Climate_ID INTEGER PRIMARY KEY NOT NULL,
 	State CHAR(2),
-	Temperature NUMERIC,
+	Month VARCHAR(20),
+	Year INTEGER,
+	AvgTempC NUMERIC,
 	AbnormalHiFlag CHAR(1),
 	AbnormalLoFlag CHAR(1)
 );
@@ -55,22 +57,22 @@ CREATE TABLE LOCATION (
 	Longtitude NUMERIC,
 	State_Long VARCHAR(30),
 	AssessedLakesAcres NUMERIC,
-	PrcntAssessedLakes VARCHAR(25), 
-	LakesWithNutrientImpairAcres NUMERIC,
+	PrctAssessedLakes VARCHAR(25), 
+	LakesImpairedAcres NUMERIC,
 	PrctLakesImpaired NUMERIC,
-	PrcntLakesImparedwithRestorationPlan NUMERIC,
+	PrctLakesRestoration NUMERIC,
 	LakesReportYear NUMERIC, 
-	AssessedRiversMi NUMERIC, 
-	PrcntAssessedRivers VARCHAR(25),
-	RiversWithNutrientImpairMiles NUMERIC, 
+	AssessedRiversMiles NUMERIC, 
+	PrctAssessedRivers VARCHAR(25),
+	RiversImpairedMiles NUMERIC, 
 	PrctRiversImpaired NUMERIC,
-	PrcntRiversImparedwithRestorationPlan NUMERIC, 
+	PrctRiversRestoration NUMERIC, 
 	RiversReportYear NUMERIC,
 	AssessedEstuariesSqMi NUMERIC, 
-	PrcntAssessedEstuaries VARCHAR(25),
-	EstuariesWithNutrientImpairSqMi NUMERIC, 
-	PrcntEstuariesImpaired NUMERIC,
-	PrcntEstuariesImparedwithRestorationPlan NUMERIC, 
+	PrctAssessedEstuaries VARCHAR(25),
+	EstuariesImpairedSqMi NUMERIC, 
+	PrctEstuariesImpaired NUMERIC,
+	PrctEstuariesRestoration NUMERIC, 
 	EstuariesReportYear NUMERIC
 );
 
@@ -78,6 +80,7 @@ CREATE TABLE DATE (
 	Date_ID INTEGER PRIMARY KEY NOT NULL,
 	Year INTEGER,
 	Month INTEGER,
+	Quarter INTEGER,
 	DateTime DATE
 );
 
@@ -97,9 +100,10 @@ CREATE TABLE NURSERY_ANALYSIS (
 );
 
 COPY FACILITY FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/FACILITY.csv' (FORMAT CSV, DELIMITER(','), HEADER);
---COPY CLIMATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv' (FORMAT CSV, DELIMITER(','), HEADER);
+COPY CLIMATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 COPY CHEMICAL FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 COPY LOCATION FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 --COPY DATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 --COPY NURSERY_ANALYSIS FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/NURSERY_ANALYSIS.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 
+SELECT * FROM CLIMATE;
