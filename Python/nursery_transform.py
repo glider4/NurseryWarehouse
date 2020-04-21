@@ -99,6 +99,9 @@ impaired['state_abbr'] = impaired['State'].map(state_list)
 location_fac_info.rename(columns={'STATE_CODE':'state_abbr'}, inplace=True)
 location_state_info = pd.merge(location_fac_info, impaired, how='left', on=['state_abbr', 'state_abbr'])
 location = location_state_info
+location = location.replace('No data', '')
+location = location.replace('±', '')
+location = location.replace('%*', '')
 
 # Convert chemical_wide df to narrower, focused fact table based on individual facility & chemical info
 # Keep rows with 2 or more non-NA values - this means ID and a chemical limit or something
@@ -179,6 +182,6 @@ climate = NOAA
 
 ##### EXPORT transformed dataframes
 facility.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/FACILITY.csv', index=False, encoding='utf-8')
-chemical.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv', index=False, encoding='utf-8')
+chemical.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv', index=True, encoding='utf-8')
 location.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
 climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv', index=False, encoding='utf-8')
