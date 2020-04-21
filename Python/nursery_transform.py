@@ -175,7 +175,9 @@ except IndexError:
 
 
 date = facilities[['ID','DMR_YEAR']]
-# date['datetime'] = pd.to_datetime(date[['DMR_YEAR','','']], errors='coerce')
+#date['Month'] = 
+#date['Quarter'] = 
+#date['Datetime'] = pd.to_datetime(date[['DMR_YEAR','Month',0]], errors='coerce')
 
 climate = NOAA
 climate['AbnormalHiFlag'] = 0
@@ -186,4 +188,5 @@ climate['AbnormalLoFlag'] = 0
 facility.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/FACILITY.csv', index=False, encoding='utf-8')
 chemical.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv', index=True, encoding='utf-8')
 location.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
-climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv', index=False, encoding='utf-8')
+climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv', index=True, encoding='utf-8')
+#date.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv', index=False, encoding='utf-8')
