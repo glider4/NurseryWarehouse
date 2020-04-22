@@ -15,6 +15,7 @@ rivers_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/imp
 lakes_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/impairedlakes.xlsx'
 waters_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/Waters_Listed_NP_Impairments.csv'
 NOAA_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/NOAA_GHCND_subset.csv'
+date_path ='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/raw_data/dates.xlsx'
 
 
 # Import data files as DataFrames
@@ -24,6 +25,8 @@ rivers = pd.read_excel(rivers_path, skiprows=2)
 lakes = pd.read_excel(lakes_path, skiprows=2)
 waters = pd.read_csv(waters_path, delimiter=',', encoding='iso-8859-1')
 NOAA = pd.read_csv(NOAA_path, delimiter=',', encoding='iso-8859-1')
+date = pd.read_excel(date_path)
+
 
 # Rename columns for estuaries, rivers, lakes df's
 del estuaries['Unnamed: 7']
@@ -172,12 +175,12 @@ try:
 
 except IndexError:
     pass
+        
 
-
-date = facilities[['ID','DMR_YEAR']]
-#date['Month'] = 
-#date['Quarter'] = 
-#date['Datetime'] = pd.to_datetime(date[['DMR_YEAR','Month',0]], errors='coerce')
+# Finish other dimension tables
+# Big thanks to https://support.sisense.com/hc/en-us/articles/230644208-Date-Dimension-File
+#   for this date file
+date = date.rename(columns={"Date": "Datetime"})
 
 climate = NOAA
 climate['AbnormalHiFlag'] = 0
@@ -189,4 +192,4 @@ facility.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/dat
 chemical.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv', index=True, encoding='utf-8')
 location.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
 climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv', index=True, encoding='utf-8')
-#date.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv', index=False, encoding='utf-8')
+date.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv', index=True, encoding='utf-8')
