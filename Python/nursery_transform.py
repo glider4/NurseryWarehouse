@@ -183,13 +183,38 @@ except IndexError:
 date = date.rename(columns={"Date": "Datetime"})
 
 climate = NOAA
+climate.insert(loc=0, column='ID', value=climate.index)
 climate['AbnormalHiFlag'] = 0
 climate['AbnormalLoFlag'] = 0
+
+for state_abbr in state_list.values():
+    climate_per_state = climate[(climate['State'] == state_abbr)]
+    
+    for month in range(1, 12):
+        climate_per_month = climate_per_state[(climate_per_state['Month'] == month)]
+    
+        average_temp_Month = climate_per_month['AvgTempC'].mean()
+        
+        count = 0
+        for temp in climate_per_month['AvgTempC']:
+            
+            # Target value is 2x higher than average is considered abnormal
+            if abs(temp) > 2*abs(average_temp_Month):
+                _ID = climate_per_month.index[count]                
+                climate.loc[(climate.ID == _ID),'AbnormalHiFlag'] = 1
+                
+            # Target value is 30% of average temp is considered abnormal
+            elif abs(temp) < 0.3*abs(average_temp_Month):
+                _ID = climate_per_month.index[count]                
+                climate.loc[(climate.ID == _ID),'AbnormalLoFlag'] = 1
+                
+            count += 1
+
 
 
 ##### EXPORT transformed dataframes
 facility.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/FACILITY.csv', index=False, encoding='utf-8')
 chemical.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv', index=True, encoding='utf-8')
 location.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv', index=False, encoding='utf-8')
-climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv', index=True, encoding='utf-8')
+climate.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv', index=False, encoding='utf-8')
 date.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv', index=True, encoding='utf-8')
