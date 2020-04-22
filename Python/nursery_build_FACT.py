@@ -12,13 +12,14 @@ facilities_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transfor
 climate_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv'
 location_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv'
 chemical_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv'
-#date_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv'
+date_path = 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv'
 
 # Import clean data files
 facilities = pd.read_csv(facilities_path, delimiter=',')
 climate = pd.read_csv(climate_path, delimiter=',')
 location = pd.read_csv(location_path, delimiter=',')
 chemical = pd.read_csv(chemical_path, delimiter=',')
+date = pd.read_csv(date_path, delimiter=',')
 
 climate.columns = ['ID', 'State', 'Month', 'Year', 'AvgTempC', 'AbnormalHiFlag', 'AbnormalLoFlag']
 
