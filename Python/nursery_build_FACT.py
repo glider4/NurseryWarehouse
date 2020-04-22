@@ -22,21 +22,24 @@ chemical = pd.read_csv(chemical_path, delimiter=',')
 
 climate.columns = ['ID', 'State', 'Month', 'Year', 'AvgTempC', 'AbnormalHiFlag', 'AbnormalLoFlag']
 
-
 # FacilityID = LocationID = Facility_Ref
-
+# Set columns for fact table
 columns = ['Facility_ID', 'Location_ID', 'Climate_ID', 'Chemical_ID', 'Date_ID',
            'AvgChemDischargeLimit', 'AvgSeasonLength', 'AvgMonthlyTemp',
            'PrcntChemsMonitored', 'NumChemsDischarged', 'NumAbnormalHi',
            'NumAbnormalLo']
 
-climate_reporting_year = climate[(climate['Year'] == 2010)]
+# Note bug that some states didn't have data for some years so will get IndexError upon running loop below
+climate_reporting_year = climate[(climate['Year'] == 2018)]
+location_noNA = location.dropna()
 
+# Initialize fact table
 NURSERY_ANALYSIS = pd.DataFrame(columns=columns)
-    
+
+# Begin loop to populate fact table
 for _ID in facilities.ID:
-    
-    state_abbr = location.iloc[_ID]['state_abbr']
+        
+    state_abbr = location_noNA.iloc[_ID]['state_abbr']
     
     # Climate info for whatever state facility is in
     climate_avg_year = climate_reporting_year[(climate_reporting_year['State'] == state_abbr)]
@@ -66,17 +69,16 @@ for _ID in facilities.ID:
     if total_chems == 0:
         percent_chems = 0
     else:
-        percent_chems = chems_specific / total_chems
+        percent_chems = (chems_specific / total_chems) * 100
         
     # Average chem limit
     subset_for_numeric = chems_IDs[chems_IDs.MaxLimit.apply(lambda x: x.isnumeric())]
     subset_for_avg = subset_for_numeric[(chems_IDs['ID'] == _ID)]
-
     avg_chem_limit = subset_for_avg['MaxLimit'].mean()
     
+    # Fix bug with inf
     if avg_chem_limit == 'inf':
         avg_chem_limit = 'None'
-    
 
     
     info = {'Facility_ID': _ID,
