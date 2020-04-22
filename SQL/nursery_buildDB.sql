@@ -78,10 +78,19 @@ CREATE TABLE LOCATION (
 
 CREATE TABLE DATE (
 	Date_ID INTEGER PRIMARY KEY NOT NULL,
-	Year INTEGER,
-	Month INTEGER,
+	Datetime DATE,
+	YearMonthNum INTEGER,
+	MonthNum INTEGER,
+	MonthName VARCHAR(20),
+	MonthShortName VARCHAR(5),
+	WeekNum INTEGER,
+	DayNumofYear INTEGER,
+	DayNumofMonth INTEGER,
+	DayNumofWeek INTEGER,
+	DayName VARCHAR(10),
+	DayShortName VARCHAR(4),
 	Quarter INTEGER,
-	DateTime DATE
+	DayNumofQuarter INTEGER
 );
 
 CREATE TABLE NURSERY_ANALYSIS (
@@ -103,7 +112,8 @@ COPY FACILITY FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transfo
 COPY CLIMATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CLIMATE.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 COPY CHEMICAL FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 COPY LOCATION FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv' (FORMAT CSV, DELIMITER(','), HEADER);
---COPY DATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv' (FORMAT CSV, DELIMITER(','), HEADER);
+COPY DATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 COPY NURSERY_ANALYSIS FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/NURSERY_ANALYSIS.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 
 SELECT * FROM NURSERY_ANALYSIS
+ORDER BY avgseasonlength DESC;
