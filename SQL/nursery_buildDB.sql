@@ -85,11 +85,11 @@ CREATE TABLE DATE (
 );
 
 CREATE TABLE NURSERY_ANALYSIS (
-	FACILITY_ID INTEGER,
-	LOCATION_ID INTEGER,
-	CLIMATE_ID INTEGER,
-	CHEMICAL_ID INTEGER,
-	DATE_ID INTEGER,
+	FACILITY_ID NUMERIC,
+	LOCATION_ID NUMERIC,
+	CLIMATE_ID NUMERIC,
+	CHEMICAL_ID NUMERIC,
+	DATE_ID NUMERIC,
 	AvgChemDischargeLimit NUMERIC,
 	AvgSeasonLength NUMERIC,
 	AvgMonthlyTemp NUMERIC,
@@ -104,6 +104,6 @@ COPY CLIMATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transfor
 COPY CHEMICAL FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/CHEMICAL.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 COPY LOCATION FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/LOCATION.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 --COPY DATE FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/DATE.csv' (FORMAT CSV, DELIMITER(','), HEADER);
---COPY NURSERY_ANALYSIS FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/NURSERY_ANALYSIS.csv' (FORMAT CSV, DELIMITER(','), HEADER);
+COPY NURSERY_ANALYSIS FROM 'C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/NURSERY_ANALYSIS.csv' (FORMAT CSV, DELIMITER(','), HEADER);
 
-SELECT * FROM CLIMATE;
+SELECT * FROM NURSERY_ANALYSIS
