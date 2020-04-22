@@ -39,66 +39,69 @@ location_noNA = location.dropna()
 NURSERY_ANALYSIS = pd.DataFrame(columns=columns)
 
 # Begin loop to populate fact table
-for _ID in facilities.ID:
+try:
+    for _ID in facilities.ID:
+            
+        state_abbr = location_noNA.iloc[_ID]['state_abbr']
         
-    state_abbr = location_noNA.iloc[_ID]['state_abbr']
-    
-    # Climate info for whatever state facility is in
-    climate_avg_year = climate_reporting_year[(climate_reporting_year['State'] == state_abbr)]
-    avg_C = climate_avg_year['AvgTempC'].mean()
-    
-    # Season is months with avg temp at 10 degrees C (50 F) or higher    
-    temp_limit = climate_avg_year.apply(lambda x: True if x['AvgTempC'] >= 10 else False , axis=1)
-    season_length = len(temp_limit[temp_limit == True].index)
-    
-    # Number of chems discharged
-    if facilities.iloc[_ID]['LIKELY_TO_DISCHARGE_N_OR_P']:
-        NP = 2
-    else:
-        NP = 0
+        # Climate info for whatever state facility is in
+        climate_avg_year = climate_reporting_year[(climate_reporting_year['State'] == state_abbr)]
+        avg_C = climate_avg_year['AvgTempC'].mean()
         
-    # I only want chemical info where there are limits (dropna thresh is 4 columns full) 
-    chems_IDs = chemical.dropna(thresh=4)
-    chems_specific = len(chems_IDs[(chems_IDs['ID'] == _ID)])
-    
-    # This logic fixes a bug where NP was counted twice
-    if NP == 0:
-        total_chems = chems_specific
-    elif NP == 2:
-        total_chems = NP + chems_specific
+        # Season is months with avg temp at 10 degrees C (50 F) or higher    
+        temp_limit = climate_avg_year.apply(lambda x: True if x['AvgTempC'] >= 10 else False , axis=1)
+        season_length = len(temp_limit[temp_limit == True].index)
         
-    # Fixes divide by zero error when finding percent of monitored chems 
-    if total_chems == 0:
-        percent_chems = 0
-    else:
-        percent_chems = (chems_specific / total_chems) * 100
+        # Number of chems discharged
+        if facilities.iloc[_ID]['LIKELY_TO_DISCHARGE_N_OR_P']:
+            NP = 2
+        else:
+            NP = 0
+            
+        # I only want chemical info where there are limits (dropna thresh is 4 columns full) 
+        chems_IDs = chemical.dropna(thresh=4)
+        chems_specific = len(chems_IDs[(chems_IDs['ID'] == _ID)])
         
-    # Average chem limit
-    subset_for_numeric = chems_IDs[chems_IDs.MaxLimit.apply(lambda x: x.isnumeric())]
-    subset_for_avg = subset_for_numeric[(chems_IDs['ID'] == _ID)]
-    avg_chem_limit = subset_for_avg['MaxLimit'].mean()
+        # This logic fixes a bug where NP was counted twice
+        if NP == 0:
+            total_chems = chems_specific
+        elif NP == 2:
+            total_chems = NP + chems_specific
+            
+        # Fixes divide by zero error when finding percent of monitored chems 
+        if total_chems == 0:
+            percent_chems = 0
+        else:
+            percent_chems = (chems_specific / total_chems) * 100
+            
+        # Average chem limit
+        subset_for_numeric = chems_IDs[chems_IDs.MaxLimit.apply(lambda x: x.isnumeric())]
+        subset_for_avg = subset_for_numeric[(chems_IDs['ID'] == _ID)]
+        avg_chem_limit = subset_for_avg['MaxLimit'].mean()
+        
+        # Fix bug with inf
+        if avg_chem_limit == 'inf':
+            avg_chem_limit = 'None'
     
-    # Fix bug with inf
-    if avg_chem_limit == 'inf':
-        avg_chem_limit = 'None'
-
+        
+        info = {'Facility_ID': _ID,
+               'Location_ID': location.iloc[_ID]['ID'] , 
+               'Climate_ID':  climate_avg_year[(climate_avg_year['State'] == state_abbr)].iloc[0]['ID'],
+               'Chemical_ID': chemical.iloc[_ID][0], 
+               'Date_ID': 0,
+               'AvgChemDischargeLimit': avg_chem_limit, 
+               'AvgSeasonLength': season_length, 
+               'AvgMonthlyTemp': avg_C,
+               'PrcntChemsMonitored': percent_chems, 
+               'NumChemsDischarged': total_chems, 
+               'NumAbnormalHi': 0,
+               'NumAbnormalLo': 0}
+        
     
-    info = {'Facility_ID': _ID,
-           'Location_ID': location.iloc[_ID]['ID'] , 
-           'Climate_ID':  climate_avg_year[(climate_avg_year['State'] == state_abbr)].iloc[0]['ID'],
-           'Chemical_ID': chemical.iloc[_ID][0], 
-           'Date_ID': 0,
-           'AvgChemDischargeLimit': avg_chem_limit, 
-           'AvgSeasonLength': season_length, 
-           'AvgMonthlyTemp': avg_C,
-           'PrcntChemsMonitored': percent_chems, 
-           'NumChemsDischarged': total_chems, 
-           'NumAbnormalHi': 0,
-           'NumAbnormalLo': 0}
+        NURSERY_ANALYSIS = NURSERY_ANALYSIS.append(info, ignore_index=True)
     
-
-    NURSERY_ANALYSIS = NURSERY_ANALYSIS.append(info, ignore_index=True)
-    
+except IndexError:
+    pass
     
 NURSERY_ANALYSIS.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/NURSERY_ANALYSIS.csv', index=False, encoding='utf-8')
 
