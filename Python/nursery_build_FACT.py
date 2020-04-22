@@ -5,6 +5,7 @@ Build main FACT table (NURSERY_ANALYSIS) based on dimension tables already
 built in the nursery_transform script.
 """
 
+import datetime
 import pandas as pd
 
 # Set paths to transformed/cleaned data files
