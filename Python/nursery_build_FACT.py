@@ -82,8 +82,13 @@ try:
         # Fix bug with inf
         if avg_chem_limit == 'inf':
             avg_chem_limit = 'None'
-    
-        
+            
+        # Find number of abnormal hi/lo by counting number of non '0's in Abnormal Flag col's per each state
+        climate_state = climate[(climate['State'] == state_abbr)]
+        num_abnorm_hi = abs(climate_state.AbnormalHiFlag.value_counts()[0]-len(climate_state))
+        num_abnorm_lo = abs(climate_state.AbnormalLoFlag.value_counts()[0]-len(climate_state))
+
+        # Create dictionary of info to append to fact table
         info = {'Facility_ID': _ID,
                'Location_ID': location.iloc[_ID]['ID'] , 
                'Climate_ID':  climate_avg_year[(climate_avg_year['State'] == state_abbr)].iloc[0]['ID'],
@@ -94,14 +99,15 @@ try:
                'AvgMonthlyTemp': avg_C,
                'PrcntChemsMonitored': percent_chems, 
                'NumChemsDischarged': total_chems, 
-               'NumAbnormalHi': 0,
-               'NumAbnormalLo': 0}
+               'NumAbnormalHi': num_abnorm_hi,
+               'NumAbnormalLo': num_abnorm_lo}
         
-    
+        # Append dictionary to fact table
         NURSERY_ANALYSIS = NURSERY_ANALYSIS.append(info, ignore_index=True)
     
 except IndexError:
     pass
     
-NURSERY_ANALYSIS.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/NURSERY_ANALYSIS.csv', index=False, encoding='utf-8')
 
+# Export file in csv form
+NURSERY_ANALYSIS.to_csv(path_or_buf='C:/Users/dell/Documents/GitHub/NurseryWarehouse/data/transformed_data/NURSERY_ANALYSIS.csv', index=False, encoding='utf-8')
