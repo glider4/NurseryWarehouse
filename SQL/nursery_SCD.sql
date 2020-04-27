@@ -1,0 +1,14 @@
+-- Build SCD type 2 implementation
+
+CREATE TABLE FAC_HISTORY(
+	FAC_ID INTEGER,
+	Past_Flow NUMERIC,
+	New_Flow NUMERIC,
+	Date DATE);
+
+INSERT INTO FAC_HISTORY(FAC_ID, Past_Flow, New_Flow, Date)
+VALUES(1, 0, 1, CURRENT_DATE);
+
+UPDATE FACILITY
+SET ActualFlow = NewFlow
+WHERE FACILITY_ID = FAC_ID;
