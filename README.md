@@ -56,7 +56,8 @@ Some business questions that are important in this endeavor include:
  4. Where are temperature abnormalities a problem for growing?
  5. Where is the temperature high enough to sell plants year-round?
  6. When should we begin to reduce our stock during the seasonin a specific location?
- 7. Where is water quality good/bad for growing plants?8.Where is water quality diminishing (and re-bounding) due to pollution?
+ 7. Where is water quality good/bad for growing plants?
+ 8. Where is water quality diminishing (and re-bounding) due to pollution?
 
 ## Entity-Relationship Diagram
 
