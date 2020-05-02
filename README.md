@@ -9,7 +9,7 @@ https://gispub2.epa.gov/NPDAT/downloads/npdes_met_20150721.html
 More spreadsheets:
 https://www.epa.gov/nutrient-policy-data/waters-assessed-impaired-due-nutrient-related-causes
 
-## Intro & Project Goals
+# Intro & Project Goals
 The overarching goal of this project is to leverage data from the Environmental Protection Agency
 and National Oceanic and Atmospheric Administration to aid in the expansion of a plant nursery 
 company that is looking to expand to new locations in the United States.  They sell plants, seeds, 
@@ -70,19 +70,20 @@ that I explained in the Python transformation section.
 
 ![ERD](./docs/nurseryERD.png)
 
-### FACILITY
+## FACILITY
 The facility dimension holds information regarding each individual facility that the EPA is tracking with respect 
 to pollution into natural waters.  Each facility entry has a unique ID, permit type, name, and more.  The EPA has also noted 
 whether or not the facility even monitors its own discharge, and if they have limits (Has_N_Monitoring, Has_N_Limit). 
 They have also added how much the facility is designed to discharge, versus how much in reality it actually is. 
 These characteristics can say a lot about the facility.
 
-### LOCATION The location dimension tells the business everything they need 
+## LOCATION 
+The location dimension tells the business everything they need 
 to know about a specific area, down to the zip code grain.  It incorporates the 3 EPA tables (impaired estuaries, lakes, rivers) 
 to provide additional details about the assessment and recovery of these bodies of water in a certain area.This can say a lot 
 about the area in question and what sort of effort is being done to keep the environment nutritionally stable for surrounding life.
 
-### CLIMATE 
+## CLIMATE 
 The climate dimension stems directly off of the subset of data that I pulled from my NOAA GHCND database  project. This  is  all  
 data  from  the  National  Oceanic  and  Atmospheric Administration (NOAA), that provides the business with average temperatures 
 for each state for each month.  I then derived an attributed named “AvgTempC” to track the average temperature in the area 
@@ -90,7 +91,7 @@ historically.  Using the algorithms that I talked about in the Python transforma
 attributes to track the abnormal high and low temperatures that had occurred in thearea.This says a lot about the variability 
 and extreme temperature spikes of the areawhich could kill plants.
 
-### CHEMICAL
+## CHEMICAL
 As mentioned before, the chemical dimension was 
 transformed from a very wide subset of the Facilities Likely to Discharge N/P dataset into a long, narrow dataframe 
 that tracks each chemical being discharged from each facility.  This makes it easy to connect the dimension’s details 
@@ -98,12 +99,12 @@ for a specific facility and analyze what is happening in regard to the rates of 
 chemicals are present.  I also used thedetails of this dimension to derive the number of chemicals being discharged and 
 the percent that were actually being monitored for the single fact table NURSERY_ANALYSIS.
 
-### DATE
+## DATE
 The date dimension is nothing too complex; each row in the fact table has a date ID that tells the business when these 
 observations were made.From there it is broken up into different combinations and attributes of that date, say DayName 
 like “Tuesday” and Quarter, WeekNum, etc.
 
-### NURSERY_ANALYSIS
+## NURSERY_ANALYSIS
 The fact table has a number of attributes that are very useful for analysis:
 
 1. AvgChemDischargeLimit: Taken from CHEMICALS, this is the average rate at which chemicals are being discharged per each individual facility.
@@ -113,7 +114,7 @@ The fact table has a number of attributes that are very useful for analysis:
 5. NumChemsDischarged: The count of unique chemicals being discharged from the facility.
 6. NumAbnormalHi and NumAbnormalLo: Derived  from  CLIMATE,  the  number  of  abnormal  high  temperature  and  low temperature days in a given state per each year.
 
-## Tableau Visualizations
+# Tableau Visualizations
 ![ChemImpairedLakes](./vis/Lakes_Impaired_Prct.png)
 
 ![ChemImpairedLakeswithRestorePlan](./vis/Lakes_Impaired_Restoration_Prct.png)
