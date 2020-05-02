@@ -53,7 +53,7 @@ Some business questions that are important in this endeavor include:
  1. What area has the most consistent, longest growing season where my company could set up a shop and increase its sales?
  2. Which current area is losing its ability for a consistent growing season?
  3. Which states are taking environmental pollution seriously that could affect the bottom line of growing performance?
- 4. Where aretemperature abnormalities a problem for growing?
+ 4. Where are temperature abnormalities a problem for growing?
  5. Where is the temperature high enough to sell plants year-round?
  6. When should we begin to reduce our stock during the seasonin a specific location?
  7. Where is water quality good/bad for growing plants?8.Where is water quality diminishing (and re-bounding) due to pollution?
