@@ -119,3 +119,7 @@ The fact table has a number of attributes that are very useful for analysis:
 ![ChemImpairedLakes](./vis/Lakes_Impaired_Prct.png)
 
 ![ChemImpairedLakeswithRestorePlan](./vis/Lakes_Impaired_Restoration_Prct.png)
+
+![TempSeasonLength](./vis/Temp_Season_Length.png)
+
+![DesignvsActual](./vis/Design_vs_Actual.png)
