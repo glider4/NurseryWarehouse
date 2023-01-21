@@ -2,9 +2,19 @@
 A data warehouse designed to provide business analysis functionality for an emerging plant nursery company looking to expand to new locations.  Uses EPA, NOAA datasets.
 
 ## Links to Data
-- [Data downloads](https://gispub2.epa.gov/NPDAT/DataDownloads.html)
-- [Facilities Likely to Discharge N/P to Water](https://gispub2.epa.gov/NPDAT/downloads/npdes_met_20150721.html)
-- [More Spreadsheets](https://www.epa.gov/nutrient-policy-data/waters-assessed-impaired-due-nutrient-related-causes)
+- [Data downloads](https://gispub2.epa.gov/NPDAT/DataDownloads.html) - dead link as of 2023
+- [Facilities Likely to Discharge N/P to Water](https://gispub2.epa.gov/NPDAT/downloads/npdes_met_20150721.html) - dead link as of 2023
+- [More Spreadsheets](https://www.epa.gov/nutrient-policy-data/waters-assessed-impaired-due-nutrient-related-causes) - **still live**
+
+See `/data` directory for raw and transformed data.
+
+## How to Build PostgreSQL Database
+
+Using the SQL scripts in `/SQL`, a PostgreSQL database can be built, along with indexes.  It uses the data available in `/data/transformed_data`.
+
+[Link to main SQL script to build database](/SQL/nursery_buildDB.sql)
+
+**See the [ERD](#Entity-Relationship-Diagram) for the database schema.** 
 
 ## Intro & Project Goals
 
